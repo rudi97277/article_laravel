@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\MembershipController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('auth/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('auth/user', [AuthController::class, 'profile']);
+
+    Route::post('documents/upload', [DocumentController::class, 'upload']);
+    Route::apiResource('articles', ArticleController::class);
+    Route::apiResource('events', EventController::class);
+    Route::apiResource('memberships', MembershipController::class);
 });
