@@ -41,7 +41,7 @@ class DocumentService
     {
         $documents = Document::whereIn('id', $documentIds)->get();
         foreach ($documents as $item) {
-            $image_path = public_path('/' . $item->url);
+            $image_path = public_path('/image/' . $item->file_name);
             if (File::exists($image_path)) {
                 File::delete($image_path);
             }
