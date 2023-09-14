@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Document;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentService
 {
@@ -15,11 +16,12 @@ class DocumentService
         $randomNumber = $this->random4Digits();
         $fileName = $time . $randomNumber . "." . $image->getClientOriginalExtension();
 
-        $image->storeAs('public/image', $fileName);
+        $path = Storage::disk('public')->put("image", $image);
+        $fileName = str_replace('image/', '', $path);
         return Document::create([
             'file_name' => $fileName,
             'user_id' => $user->id,
-            'url' => 'storage/image/' . $fileName,
+            'url' => $path,
             'mime_type' =>  $image->getClientMimeType(),
             'size' => $image->getSize(),
             'original_file_name' => $image->getClientOriginalName(),
