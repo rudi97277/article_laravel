@@ -55,7 +55,8 @@ class MembershipController extends Controller
             'status' => 'nullable|string',
             'link_schooler' => 'nullable|url',
             'link_scoopus' => 'nullable|url',
-            'evidence_id' => 'nullable|exists:documents,id'
+            'evidence_id' => 'nullable|exists:documents,id',
+            'verified' => 'nullable|boolean'
         ]);
 
         $membership = Membership::findOrFail($id);

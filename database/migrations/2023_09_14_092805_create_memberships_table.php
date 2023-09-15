@@ -20,6 +20,7 @@ class CreateMembershipsTable extends Migration
             $table->string('link_schooler');
             $table->string('link_scoopus');
             $table->uuid('evidence_id')->unique();
+            $table->boolean('verified')->default(0);
             $table->foreign('evidence_id')->references('id')->on('documents');
             $table->timestamps();
         });

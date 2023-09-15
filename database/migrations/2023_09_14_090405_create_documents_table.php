@@ -20,8 +20,9 @@ class CreateDocumentsTable extends Migration
             $table->string('original_file_name');
             $table->string('mime_type');
             $table->unsignedBigInteger('size');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
