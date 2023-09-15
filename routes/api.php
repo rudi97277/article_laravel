@@ -23,8 +23,50 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('auth/user', [AuthController::class, 'profile']);
 
-    Route::post('documents/upload', [DocumentController::class, 'upload']);
-    Route::apiResource('articles', ArticleController::class);
-    Route::apiResource('events', EventController::class);
-    Route::apiResource('memberships', MembershipController::class);
+    Route::prefix('articles')->group(function () {
+        Route::controller(ArticleController::class)->group(function () {
+            Route::post('', 'store');
+            Route::put('{id}', 'update');
+            Route::delete('{id}', 'delete');
+        });
+    });
+
+    Route::prefix('events')->group(function () {
+        Route::controller(EventController::class)->group(function () {
+            Route::post('', 'store');
+            Route::put('{id}', 'update');
+            Route::delete('{id}', 'delete');
+        });
+    });
+
+    Route::prefix('memberships')->group(function () {
+        Route::controller(MembershipController::class)->group(function () {
+            Route::put('{id}', 'update');
+            Route::delete('{id}', 'delete');
+        });
+    });
 });
+
+Route::prefix('articles')->group(function () {
+    Route::controller(ArticleController::class)->group(function () {
+        Route::get('', 'index');
+        Route::get('{id}', 'show');
+    });
+});
+
+Route::prefix('events')->group(function () {
+    Route::controller(EventController::class)->group(function () {
+        Route::get('', 'index');
+        Route::get('{id}', 'show');
+    });
+});
+
+Route::prefix('memberships')->group(function () {
+    Route::controller(MembershipController::class)->group(function () {
+        Route::get('', 'index');
+        Route::post('', 'update');
+        Route::get('{id}', 'show');
+    });
+});
+
+Route::post('documents/upload', [DocumentController::class, 'upload']);
