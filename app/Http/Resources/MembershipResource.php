@@ -20,6 +20,7 @@ class MembershipResource extends JsonResource
             'status' => $this->status,
             'link_schooler' => $this->link_schooler,
             'link_scoopus' => $this->link_scoopus,
+            'verified' => $this->verified,
             'evidence' => new DocumentResource($this->whenLoaded('evidence'))
         ];
     }

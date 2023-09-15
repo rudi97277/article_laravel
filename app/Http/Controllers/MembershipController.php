@@ -21,7 +21,7 @@ class MembershipController extends Controller
 
     public function index(Request $request)
     {
-        $memberships =  Membership::paginate($request->input('page_size', 10));
+        $memberships =  Membership::where('verified', $request->input('verified', 1))->paginate($request->input('page_size', 10));
         return $this->showPaginate('articles', collect(MembershipResource::collection($memberships)), collect($memberships));
     }
 

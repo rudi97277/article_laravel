@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(ArticleController::class)->group(function () {
             Route::post('', 'store');
             Route::put('{id}', 'update');
+            Route::patch('{id}', 'update');
             Route::delete('{id}', 'delete');
         });
     });
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(EventController::class)->group(function () {
             Route::post('', 'store');
             Route::put('{id}', 'update');
+            Route::patch('{id}', 'update');
             Route::delete('{id}', 'delete');
         });
     });
@@ -42,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('memberships')->group(function () {
         Route::controller(MembershipController::class)->group(function () {
             Route::put('{id}', 'update');
+            Route::patch('{id}', 'update');
             Route::delete('{id}', 'delete');
         });
     });
