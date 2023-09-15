@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost', 'http://localhost:3000', 'http://localhost:3001'],
+    'allowed_origins' => ['http://localhost', 'http://localhost:3000', 'http://localhost:3001', 'https://ieia.iarn.or.id'],
 
     'allowed_origins_patterns' => [],
 
