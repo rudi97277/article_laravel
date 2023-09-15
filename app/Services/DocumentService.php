@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Document;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,7 +11,7 @@ class DocumentService
 {
     public function upload($image)
     {
-        $user = auth()->user();
+        $user = Auth::guard('sanctum')->user();
 
         $time = time();
         $randomNumber = $this->random4Digits();
@@ -20,7 +21,7 @@ class DocumentService
         $fileName = str_replace('image/', '', $path);
         return Document::create([
             'file_name' => $fileName,
-            'user_id' => $user->id,
+            'user_id' => $user->id ?? null,
             'url' => $path,
             'mime_type' =>  $image->getClientMimeType(),
             'size' => $image->getSize(),

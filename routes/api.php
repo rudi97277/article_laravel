@@ -64,7 +64,7 @@ Route::prefix('events')->group(function () {
 Route::prefix('memberships')->group(function () {
     Route::controller(MembershipController::class)->group(function () {
         Route::get('', 'index');
-        Route::post('', 'update');
+        Route::post('', 'store');
         Route::get('{id}', 'show');
     });
 });
