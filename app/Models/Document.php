@@ -14,6 +14,9 @@ class Document extends Model
     public function getUrlAttribute($value)
     {
         if (empty($value)) return null;
-        return url($value);
+        else if (env('APP_ENV') == 'local')
+            return url($value);
+        else
+            return url('public/' . $value);
     }
 }
