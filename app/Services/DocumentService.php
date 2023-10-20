@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentService
 {
-    public function upload($image)
+    public function upload($file)
     {
         $user = Auth::guard('sanctum')->user();
 
         $time = time();
         $randomNumber = $this->random4Digits();
-        $fileName = $time . $randomNumber . "." . $image->getClientOriginalExtension();
+        $fileName = $time . $randomNumber . "." . $file->getClientOriginalExtension();
 
-        $path = Storage::disk('public')->put("image", $image);
-        $fileName = str_replace('image/', '', $path);
+        $path = Storage::disk('public')->put("files", $file);
+        $fileName = str_replace('file/', '', $path);
         return Document::create([
             'file_name' => $fileName,
             'user_id' => $user->id ?? null,
             'url' => $path,
-            'mime_type' =>  $image->getClientMimeType(),
-            'size' => $image->getSize(),
-            'original_file_name' => $image->getClientOriginalName(),
+            'mime_type' =>  $file->getClientMimeType(),
+            'size' => $file->getSize(),
+            'original_file_name' => $file->getClientOriginalName(),
         ]);
     }
 

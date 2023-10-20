@@ -20,11 +20,11 @@ class DocumentController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'image' => 'required|image'
+            'file' => 'required|file'
         ]);
 
-        $image = $request->file('image');
-        $document = $this->documentService->upload($image);
+        $file = $request->file('file');
+        $document = $this->documentService->upload($file);
         return $this->showOne($document);
     }
 }
