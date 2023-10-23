@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('', 'store');
             Route::put('{id}', 'update');
             Route::patch('{id}', 'update');
-            Route::delete('{id}', 'delete');
+            Route::delete('{id}', 'destroy');
         });
     });
 
@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('', 'store');
             Route::put('{id}', 'update');
             Route::patch('{id}', 'update');
-            Route::delete('{id}', 'delete');
+            Route::delete('{id}', 'destroy');
         });
     });
 
@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(MembershipController::class)->group(function () {
             Route::put('{id}', 'update');
             Route::patch('{id}', 'update');
-            Route::delete('{id}', 'delete');
+            Route::delete('{id}', 'destroy');
         });
     });
 });
