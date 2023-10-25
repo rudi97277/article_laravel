@@ -24,7 +24,11 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $articles =  Article::with('cover')->paginate($request->input('page_size', 10));
+        $articles =  Article::with('cover')
+            ->when($request->keyword, fn ($query) => $query->where(
+                fn ($query) => $query->where('title', 'LIKE', "%$request->keyword%")
+                    ->orWhere('description', 'LIKE', "%$request->keyword%")
+            ))->paginate($request->input('page_size', 10));
         return $this->showPaginate('articles', collect(ArticleResource::collection($articles)), collect($articles));
     }
 

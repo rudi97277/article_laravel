@@ -25,7 +25,12 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events =  Event::with('cover')->paginate($request->input('page_size', 10));
+        $events =  Event::with('cover')
+            ->when($request->keyword, fn ($query) => $query->where(
+                fn ($query) => $query->where('title', 'LIKE', "%$request->keyword%")
+                    ->orWhere('description', 'LIKE', "%$request->keyword%")
+            ))
+            ->paginate($request->input('page_size', 10));
         return $this->showPaginate('events', collect(EventResource::collection($events)), collect($events));
     }
 
