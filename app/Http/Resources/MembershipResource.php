@@ -22,7 +22,7 @@ class MembershipResource extends JsonResource
             'link_schooler' => $this->link_schooler,
             'link_scoopus' => $this->link_scoopus,
             'verified' => (bool)$this->verified,
-            'evidence' => new DocumentResource($this->whenLoaded('evidence'))
+            'evidence' => new DocumentResource($this->evidence)
         ];
     }
 }

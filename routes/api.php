@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(MembershipController::class)->group(function () {
             Route::put('{id}', 'update');
             Route::delete('{id}', 'destroy');
-            Route::patch('{id}/verify', 'changeVerify');
+            Route::patch('{id}', 'update');
         });
     });
 });
@@ -69,7 +69,7 @@ Route::prefix('memberships')->group(function () {
         Route::get('', 'index');
         Route::post('', 'store');
         Route::get('{id}', 'show');
-        Route::patch('{id}', 'update');
+        Route::patch('{id}/evidence', 'updateEvidence');
     });
 });
 
