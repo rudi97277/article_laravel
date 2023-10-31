@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(MembershipController::class)->group(function () {
             Route::put('{id}', 'update');
             Route::delete('{id}', 'destroy');
-            Route::patch('{id}/status', 'changeStatus');
+            Route::patch('{id}/verify', 'changeVerify');
         });
     });
 });

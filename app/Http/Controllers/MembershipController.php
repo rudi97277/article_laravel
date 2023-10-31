@@ -73,7 +73,7 @@ class MembershipController extends Controller
         return $this->showOne(new MembershipResource($membership));
     }
 
-    public function changeStatus($id)
+    public function changeVerify($id)
     {
         $membership = Membership::findOrFail($id);
         $membership->update(['verified' => !$membership->verified]);
