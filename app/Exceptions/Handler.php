@@ -78,7 +78,7 @@ class Handler extends ExceptionHandler
             if ($errorCode == 1451) {
                 return $this->errorResponse("Cannot remove this resource permanently. It is related with any other resource", 409, 40900);
             } else if ($errorCode == 1062) {
-                return $this->errorResponse("This data already sync", 200, 20000);
+                return $this->errorResponse("Duplicated entry", 422, 42200);
             }
         }
 

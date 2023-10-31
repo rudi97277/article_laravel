@@ -6,6 +6,7 @@ use App\Http\Resources\MembershipResource;
 use App\Models\Membership;
 use App\Services\DocumentService;
 use App\Traits\ApiResponser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MembershipController extends Controller
@@ -28,16 +29,18 @@ class MembershipController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'id' => 'required|string',
             'name' => 'required|string',
             'status' => 'required|string',
             'link_schooler' => 'required|url',
             'link_scoopus' => 'required|url',
-            'evidence_id' => 'required|exists:documents,id'
+            'email' => 'required|email'
         ]);
 
         $membership = Membership::create($data);
-        return $this->showOne(new MembershipResource($membership->load('evidence')));
+        $membership->registration_number = $this->generateRegistrationNumber($membership->id);
+        $membership->save();
+
+        return $this->showOne(new MembershipResource($membership));
     }
 
 
@@ -55,8 +58,8 @@ class MembershipController extends Controller
             'status' => 'nullable|string',
             'link_schooler' => 'nullable|url',
             'link_scoopus' => 'nullable|url',
+            'email' => 'nullable|email',
             'evidence_id' => 'nullable|exists:documents,id',
-            'verified' => 'nullable|boolean'
         ]);
 
         $membership = Membership::findOrFail($id);
@@ -65,9 +68,16 @@ class MembershipController extends Controller
             $deletedId = [$membership->evidence_id];
         }
 
-        $status = $membership->update($data);
+        $membership->update($data);
         $this->documentService->deleteResource($deletedId);
-        return $this->showOne($status);
+        return $this->showOne(new MembershipResource($membership));
+    }
+
+    public function changeStatus($id)
+    {
+        $membership = Membership::findOrFail($id);
+        $membership->update(['verified' => !$membership->verified]);
+        return $this->showOne(new MembershipResource($membership));
     }
 
 
@@ -78,5 +88,11 @@ class MembershipController extends Controller
         $status = $membership->delete();
         $this->documentService->deleteResource($deletedId);
         return $this->showOne($status);
+    }
+
+    public function generateRegistrationNumber($id)
+    {
+        $now = Carbon::now();
+        return "$id/IEIA/{$now->format('m')}/{$now->format('Y')}";
     }
 }

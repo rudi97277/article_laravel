@@ -17,8 +17,8 @@ class DocumentService
         $randomNumber = $this->random4Digits();
         $fileName = $time . $randomNumber . "." . $file->getClientOriginalExtension();
 
-        $path = Storage::disk('public')->put("files", $file);
-        $fileName = str_replace('file/', '', $path);
+        $path = Storage::disk('public')->put('files', $file);
+        $fileName = str_replace('file', '', $path);
         return Document::create([
             'file_name' => $fileName,
             'user_id' => $user->id ?? null,

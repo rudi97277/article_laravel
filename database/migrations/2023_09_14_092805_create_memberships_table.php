@@ -14,12 +14,14 @@ class CreateMembershipsTable extends Migration
     public function up()
     {
         Schema::create('memberships', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
+            $table->string('registration_number')->unique()->nullable();
             $table->string('name');
             $table->string('status');
             $table->string('link_schooler');
             $table->string('link_scoopus');
-            $table->uuid('evidence_id')->unique();
+            $table->string('email')->unique();
+            $table->uuid('evidence_id')->unique()->nullable();
             $table->boolean('verified')->default(0);
             $table->foreign('evidence_id')->references('id')->on('documents');
             $table->timestamps();

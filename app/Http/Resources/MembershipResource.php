@@ -16,11 +16,12 @@ class MembershipResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'registration_number' => $this->registration_number,
             'name' => $this->name,
             'status' => $this->status,
             'link_schooler' => $this->link_schooler,
             'link_scoopus' => $this->link_scoopus,
-            'verified' => $this->verified,
+            'verified' => (bool)$this->verified,
             'evidence' => new DocumentResource($this->whenLoaded('evidence'))
         ];
     }

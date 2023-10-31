@@ -9,8 +9,7 @@ class Membership extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    public $incrementing = false;
+    protected $guarded = ['id'];
 
     public function evidence()
     {
