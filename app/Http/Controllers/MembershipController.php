@@ -22,7 +22,19 @@ class MembershipController extends Controller
 
     public function index(Request $request)
     {
-        $memberships =  Membership::where('verified', $request->input('verified', 1))->paginate($request->input('page_size', 10));
+        $memberships =  Membership::where('verified', $request->input('verified', 1))
+            ->when(
+                $request->keyword,
+                fn ($query) => $query
+                    ->where(
+                        fn ($search) => $search
+                            ->where('name', 'LIKE', "%$request->keyword%")
+                            ->orWhere('status', 'LIKE', "%$request->keyword%")
+                            ->orWhere('link_schooler', 'LIKE', "%$request->keyword%")
+                            ->orWhere('link_scoopus', 'LIKE', "%$request->keyword%")
+                    )
+            )
+            ->paginate($request->input('page_size', 10));
         return $this->showPaginate('memberships', collect(MembershipResource::collection($memberships)), collect($memberships));
     }
 
