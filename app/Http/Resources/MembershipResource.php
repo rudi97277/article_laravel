@@ -16,7 +16,7 @@ class MembershipResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $request->trueId ?? $this->id,
             'registration_number' => $this->registration_number,
             'name' => $this->name,
             'status' => $this->status,

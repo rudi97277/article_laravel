@@ -60,19 +60,26 @@ class MembershipController extends Controller
         });
 
         $defaultLink = 'http://localhost:5173/membership';
-        $encryptId = encrypt($membership->id);
+        $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new MemberRegister($membership->name, "$defaultLink?key=$encryptId"));
 
         return $this->showOne(new MembershipResource($membership));
     }
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         
         if(!ctype_digit($id)) {
-            $id = decrypt($id);
-            $membership = Membership::whereNull('evidence_id')->findOrFail($id);
+            try {
+                $decryted = decrypt($id);
+            } catch (\Throwable $th) {
+                return $this->errorResponse('Unauthorized',401,40100);
+            }
+            
+            $trueId = str_replace("salt","",$decryted);
+            $membership = Membership::whereNull('evidence_id')->findOrFail($trueId);
+            $request->merge(['trueId' => $id]);
         }
         else
             $membership = Membership::findOrFail($id);
