@@ -57,7 +57,6 @@ class MembershipController extends Controller
 
         register_shutdown_function(function ()  {
             Artisan::call('-q queue:work --stop-when-empty');
-
         });
 
         $defaultLink = 'http://localhost:5173/membership';
@@ -71,10 +70,14 @@ class MembershipController extends Controller
     public function show($id)
     {
         
-        if(!ctype_digit($id))
+        if(!ctype_digit($id)) {
             $id = decrypt($id);
+            $membership = Membership::whereNull('evidence_id')->findOrFail($id);
+        }
+        else
+            $membership = Membership::findOrFail($id);
+            
 
-        $membership = Membership::findOrFail($id);
         return $this->showOne(new MembershipResource($membership));
     }
 
