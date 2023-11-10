@@ -26,7 +26,7 @@ class MembershipController extends Controller
 
     public function index(Request $request)
     {
-        $memberships =  Membership::where('verified', $request->input('verified', 1))
+        $memberships =  Membership::when($request->verified, fn($query) => $query->where('verified', $request->input('verified', 1)))
             ->when(
                 $request->keyword,
                 fn ($query) => $query
