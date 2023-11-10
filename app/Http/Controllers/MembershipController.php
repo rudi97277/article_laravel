@@ -118,14 +118,20 @@ class MembershipController extends Controller
             'evidence_id' => 'required|exists:documents,id'
         ]);
 
-        $membership = Membership::findOrFail($id);
-        $deletedId = [];
-        if ($request->has('evidence_id') && $membership->evidence_id != $request->evidence_id) {
-            $deletedId = [$membership->evidence_id];
+        if(ctype_digit($id)) 
+            return $this->errorResponse('Unauthorized',401,40100);
+
+        try {
+            $decryted = decrypt($id);
+        } catch (\Throwable $th) {
+            return $this->errorResponse('Unauthorized',401,40100);
         }
+        
+        $trueId = str_replace("salt","",$decryted);
+        $membership = Membership::whereNull('evidence_id')->findOrFail($trueId);
+        $request->merge(['trueId' => $id]);
 
         $membership->update($data);
-        $this->documentService->deleteResource($deletedId);
         return $this->showOne(new MembershipResource($membership));
     }
 
