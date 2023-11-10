@@ -23,7 +23,7 @@
         <div id="content" style=" background-color:white; margin:auto">
             <hr style="padding: 0; margin:0;  border: 3px solid #0C377A; border-radius:5px">
             <div id="inner-content" style="padding: 20px;">
-                <img src="{{url('images/ieia.png')}}" alt="IEIA" width="100" >
+                <img src="https://articles.iarn.or.id/images/ieia.png" alt="IEIA" width="100" >
                 <hr style="border:1px solid #f6f6f6">
                 <h2>Halo, {{$name ?? 'name'}}!</h2>
                 <p>Terimakasih telah mendaftar membership di website kami. Silahkan melakukan pembayaran pada rekening berikut.</p>
