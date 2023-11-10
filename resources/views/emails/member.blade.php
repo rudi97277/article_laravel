@@ -28,8 +28,8 @@
                 <h2>Halo, {{$name ?? 'name'}}!</h2>
                 <p>Terimakasih telah mendaftar membership di website kami. Silahkan melakukan pembayaran pada rekening berikut.</p>
                 <p><b>PT TIMBUL TENGGELAM </b><br>BRI 106-112-2232-1123</p>
-                <p>Kirimkan bukti pembayaran anda pada nomor Whatsapp berikut.</p>
-                <p><b>Admin Whatsapp</b><br>0853-1123-4354</p>
+                <p>Kirimkan bukti pembayaran anda pada link berikut ini!</p>
+                <a href="{{ $link ?? '#' }}" style="display: inline-block; padding: 5px 10px; background-color: #0C377A; color: #fff; text-decoration: none; border-radius: 5px;">Buka Link</a>
                 <p><br></p>
                 <p>Terimakasih,<br><b>Team IAIE</b></p>
             </div>

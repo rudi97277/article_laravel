@@ -60,8 +60,9 @@ class MembershipController extends Controller
 
         });
 
-        $url = 'tes.com';
-        Mail::to($membership->email)->send(new MemberRegister($membership->name, $url));
+        $defaultLink = 'http://localhost:5173/membership';
+        $encryptId = encrypt($membership->id);
+        Mail::to($membership->email)->send(new MemberRegister($membership->name, "$defaultLink?key=$encryptId"));
 
         return $this->showOne(new MembershipResource($membership));
     }
@@ -69,6 +70,10 @@ class MembershipController extends Controller
 
     public function show($id)
     {
+        
+        if(!ctype_digit($id))
+            $id = decrypt($id);
+
         $membership = Membership::findOrFail($id);
         return $this->showOne(new MembershipResource($membership));
     }

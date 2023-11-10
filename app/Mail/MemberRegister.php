@@ -16,10 +16,11 @@ class MemberRegister extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public $name;
-    public function __construct($name)
+    public $name,$link;
+    public function __construct($name,$link)
     {
         $this->name = $name;
+        $this->link = $link;
     }
 
 
