@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MembershipResource;
+use App\Mail\MemberRegister;
 use App\Models\Membership;
 use App\Services\DocumentService;
 use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 class MembershipController extends Controller
 {
@@ -51,6 +54,14 @@ class MembershipController extends Controller
         $membership = Membership::create($data);
         $membership->registration_number = $this->generateRegistrationNumber($membership->id);
         $membership->save();
+
+        register_shutdown_function(function ()  {
+            Artisan::call('-q queue:work --stop-when-empty');
+
+        });
+
+        $url = 'tes.com';
+        Mail::to($membership->email)->send(new MemberRegister($membership->name, $url));
 
         return $this->showOne(new MembershipResource($membership));
     }
