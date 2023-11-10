@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MembershipResource;
-use App\Mail\MemberRegister;
+use App\Mail\KartuMembership;
+use App\Mail\PendaftaranMembership;
 use App\Models\Membership;
 use App\Services\DocumentService;
 use App\Traits\ApiResponser;
@@ -61,7 +62,7 @@ class MembershipController extends Controller
 
         $defaultLink = 'http://localhost:5173/membership';
         $encryptId = encrypt("salt$membership->id");
-        Mail::to($membership->email)->send(new MemberRegister($membership->name, "$defaultLink?key=$encryptId"));
+        Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
         return $this->showOne(new MembershipResource($membership));
     }
@@ -105,6 +106,14 @@ class MembershipController extends Controller
         $deletedId = [];
         if ($request->has('evidence_id') && $membership->evidence_id != $request->evidence_id) {
             $deletedId = [$membership->evidence_id];
+        }
+
+        if($request->has('verified')) {
+            register_shutdown_function(function ()  {
+                Artisan::call('-q queue:work --stop-when-empty');
+            });
+
+            Mail::to($membership->email)->send(new KartuMembership($membership->name,$request->verified));
         }
 
         $membership->update($data);
