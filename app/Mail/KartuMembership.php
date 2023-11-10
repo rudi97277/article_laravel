@@ -31,6 +31,6 @@ class KartuMembership extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('emails.card')
-            ->subject($this->verified ? 'Kartu Membership' : 'Membership Dinonaktifkan');
+            ->subject($this->verified ? 'Membership Diaktifkan' : 'Membership Dinonaktifkan');
     }
 }
