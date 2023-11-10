@@ -60,7 +60,7 @@ class MembershipController extends Controller
             Artisan::call('-q queue:work --stop-when-empty');
         });
 
-        $defaultLink = 'http://localhost:5173/membership';
+        $defaultLink = 'https://ieia.netlify.app/membership';
         $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
