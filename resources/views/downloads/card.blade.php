@@ -126,14 +126,14 @@
 <script>
     var element = document.getElementById("card");
 
-    // html2canvas(element, {
-    //     scale: 2,
-    // }).then(function(canvas) {
-    //     var link = document.createElement("a");
-    //     link.download = "card.png";
-    //     link.href = canvas.toDataURL("image/png");
-    //     link.click();
-    // });
+    html2canvas(element, {
+        scale: 2,
+    }).then(function(canvas) {
+        var link = document.createElement("a");
+        link.download = "card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
 </script>
 
 </html>
