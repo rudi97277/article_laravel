@@ -113,7 +113,7 @@ class MembershipController extends Controller
             });
 
             if ($membership->expired_at == null) {
-                $data['expired_at'] = Carbon::now()->addYear('Y-m-d H:i:s');
+                $data['expired_at'] = Carbon::now()->addYear()->format('Y-m-d H:i:s');
             }
 
             $encryptId = \encrypt("salt$membership->id");
