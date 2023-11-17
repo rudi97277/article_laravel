@@ -68,7 +68,7 @@
         .link-url {
             color: #FFF;
             font-family: DM Sans;
-            font-size: 13px;
+            font-size: 10px;
             font-style: normal;
             font-weight: 500;
             line-height: normal;
@@ -105,19 +105,17 @@
             <p id="member-id">
                 {{ $memberId }}</p>
         </div>
-        <div id="bottom-card">
+        <div id="bottom-card" style="height: 100px">
             <div style="position: absolute; top:10px; right: 15px; ">
                 <span class="exp-text">Exp Date </span><span class="date-text"> {{ $expired_at }}</span>
             </div>
-            <div style="display: flex;">
-                <div style="flex-basis: 50%; color: white">
-                    <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }}</p>
-                    <p>{{ $status ?? '-' }}</p>
-                </div>
-                <div style="margin-left: auto; color: white">
-                    <p class="link-url">{{ $linkScopus ?? '-' }}</p>
-                    <p class="link-url">{{ $linkSchooler ?? '-' }}</p>
-                </div>
+            <div style="color: white; position: absolute; bottom: 10px; max-width: 190px">
+                <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }}</p>
+                <p>{{ $status ?? '-' }}</p>
+            </div>
+            <div style="color: white; position: absolute; top:50px; right: 10px;">
+                <p class="link-url" style=" max-width: 80px">{{ $linkScopus ?? '-' }}</p>
+                <p class="link-url">{{ $linkSchooler ?? '-' }}</p>
             </div>
         </div>
     </div>
@@ -126,14 +124,14 @@
 <script>
     var element = document.getElementById("card");
 
-    html2canvas(element, {
-        scale: 2,
-    }).then(function(canvas) {
-        var link = document.createElement("a");
-        link.download = "card.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
+    // html2canvas(element, {
+    //     scale: 2,
+    // }).then(function(canvas) {
+    //     var link = document.createElement("a");
+    //     link.download = "card.png";
+    //     link.href = canvas.toDataURL("image/png");
+    //     link.click();
+    // });
 </script>
 
 </html>

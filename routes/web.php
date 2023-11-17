@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\CardController;
+use App\Http\Controllers\Web\ShortlinkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/card/{key}', [CardController::class, 'download']);
-Route::get('', fn () => view('welcome'));
+Route::get('/sch/{id}', [ShortlinkController::class, 'scoopus']);
+Route::get('/sco/{id}', [ShortlinkController::class, 'schooler']);

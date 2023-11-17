@@ -52,6 +52,14 @@ class MembershipController extends Controller
             'email' => 'required|email'
         ]);
 
+        $randomShortId = $this->generateRandomString();
+
+        while (Membership::where('shortlink_id', $randomShortId)->first()) {
+            $randomShortId = $this->generateRandomString();
+        }
+
+        $data['shortlink_id'] = $randomShortId;
+
         $membership = Membership::create($data);
         $membership->registration_number = $this->generateRegistrationNumber($membership->id);
         $membership->save();
@@ -60,7 +68,7 @@ class MembershipController extends Controller
             Artisan::call('-q queue:work --stop-when-empty');
         });
 
-        $defaultLink = 'https://ieia.iarn.or.id/membership';
+        $defaultLink = env('APP_URL') . '/membership';
         $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
@@ -163,5 +171,18 @@ class MembershipController extends Controller
     {
         $now = Carbon::now();
         return "$id/IEIA/{$now->format('m')}/{$now->format('Y')}";
+    }
+
+    function generateRandomString($length = 8)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 }

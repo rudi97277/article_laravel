@@ -16,7 +16,6 @@ class CardController extends Controller
             return null;
         }
 
-
         $membership = Membership::whereNotNull('evidence_id')->find($id);
 
         if (!$membership)
@@ -24,8 +23,8 @@ class CardController extends Controller
 
         return view('downloads.card', [
             'memberId' => $membership->registration_number,
-            'linkSchooler' => $membership->link_schooler,
-            'linkScopus' => $membership->link_scoopus,
+            'linkSchooler' => env('APP_URL') . "/sch/$membership->shortlink_id",
+            'linkScopus' => env('APP_URL') . "/sco/$membership->shortlink_id",
             'name' => $membership->name,
             'status' => $membership->status,
             'expired_at' => Carbon::parse($membership->expired_at)->format('M Y')
