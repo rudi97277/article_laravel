@@ -42,6 +42,7 @@
             background-size: 100% 100%;
             padding: 15px;
             padding-top: 35px;
+            max-height: 100px;
             position: relative;
         }
 
@@ -76,7 +77,7 @@
         #name {
             color: #FFF;
             font-family: DM Sans;
-            font-size: 20px;
+            font-size: 17px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -110,7 +111,7 @@
             </div>
             <div style="display: flex;">
                 <div style="flex-basis: 50%; color: white">
-                    <p id="name">{{ $name ?? 'Name' }}</p>
+                    <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }} Testing Name</p>
                     <p>{{ $status ?? '-' }}</p>
                 </div>
                 <div style="margin-left: auto; color: white">
@@ -125,14 +126,14 @@
 <script>
     var element = document.getElementById("card");
 
-    html2canvas(element, {
-        scale: 2,
-    }).then(function(canvas) {
-        var link = document.createElement("a");
-        link.download = "card.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
+    // html2canvas(element, {
+    //     scale: 2,
+    // }).then(function(canvas) {
+    //     var link = document.createElement("a");
+    //     link.download = "card.png";
+    //     link.href = canvas.toDataURL("image/png");
+    //     link.click();
+    // });
 </script>
 
 </html>
