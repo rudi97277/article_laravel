@@ -113,7 +113,7 @@
                 <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }}</p>
                 <p>{{ $status ?? '-' }}</p>
             </div>
-            <div style="color: white; position: absolute; top:50px; right: 10px;">
+            <div style="color: white; position: absolute; bottom:10px; right: 10px;">
                 <p class="link-url">{{ $linkScopus ? trim($linkScopus) : '-' }}</p>
                 <p class="link-url">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</p>
             </div>

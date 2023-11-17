@@ -68,7 +68,7 @@ class MembershipController extends Controller
             Artisan::call('-q queue:work --stop-when-empty');
         });
 
-        $defaultLink = env('APP_URL') . '/membership';
+        $defaultLink = 'https://ieia.iarn.or.id/membership';
         $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
