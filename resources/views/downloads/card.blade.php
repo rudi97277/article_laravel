@@ -114,8 +114,8 @@
                 <p>{{ $status ?? '-' }}</p>
             </div>
             <div style="color: white; position: absolute; top:50px; right: 10px;">
-                <p class="link-url" style=" max-width: 80px">{{ $linkScopus ?? '-' }}</p>
-                <p class="link-url">{{ $linkSchooler ?? '-' }}</p>
+                <p class="link-url">{{ $linkScopus ? trim($linkScopus) : '-' }}</p>
+                <p class="link-url">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</p>
             </div>
         </div>
     </div>
