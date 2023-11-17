@@ -120,9 +120,9 @@
             </div>
             <div style="color: white; position: absolute; bottom:10px; right: 10px;">
                 <a class="link-url"
-                    href="{{ $linkScopus ? trim($linkScopus) : '#' }}">{{ $linkScopus ? trim($linkScopus) : '-' }}</a><br>
+                    href="https://{{ $linkScopus ? trim($linkScopus) : '#' }}">{{ $linkScopus ? trim($linkScopus) : '-' }}</a><br>
                 <a class="link-url"
-                    href="{{ $linkSchooler ? trim($linkSchooler) : '#' }}">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</a>
+                    href="https://{{ $linkSchooler ? trim($linkSchooler) : '#' }}">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</a>
             </div>
         </div>
     </div>
