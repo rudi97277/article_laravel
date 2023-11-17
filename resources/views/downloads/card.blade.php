@@ -111,7 +111,7 @@
             </div>
             <div style="display: flex;">
                 <div style="flex-basis: 50%; color: white">
-                    <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }} Testing Name</p>
+                    <p id="name" style="margin-top: -20px">{{ $name ?? 'Name' }}</p>
                     <p>{{ $status ?? '-' }}</p>
                 </div>
                 <div style="margin-left: auto; color: white">
