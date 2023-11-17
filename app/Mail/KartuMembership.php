@@ -16,11 +16,12 @@ class KartuMembership extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public $name,$verified;
-    public function __construct($name,$verified)
+    public $name, $verified, $url;
+    public function __construct($name, $verified, $url = null)
     {
         $this->name = $name;
         $this->verified = $verified;
+        $this->url = $url;
     }
 
     /**

@@ -35,32 +35,12 @@
                 <hr style="border:1px solid #f6f6f6">
                 <h2>Halo, {{ $name ?? 'name' }}!</h2>
                 <p style="margin-bottom: 20px">Membership anda telah
-                    {{ $verified ?? true ? 'diaktifkan. Berikut merupakan kartu membership anda' : 'dinonaktifkan' }}.
+                    {{ $verified ?? true ? 'diaktifkan. Silahkan download kartu membership anda pada link berikut ini' : 'dinonaktifkan' }}.
                 </p>
                 @if ($verified ?? true)
-                    <div id="card"
-                        style="display: flex; flex-direction: column;  border-radius: 16px; background: #9695951A; padding: 10px; width: 500px">
-                        <div style="display: flex; width: 100%; margin-bottom: 40px">
-                            <img src="images/ieia.png" alt="IEIA" width="100">
-                            <p
-                                style="margin-left: auto; font-weight: 600; font-size: 30px; line-height: normal; color: #0C377A; font-family: DM Serif Text;">
-                                12/IEIA/11/2023</p>
-                        </div>
-                        <div
-                            style="border-radius: 0px 0px 7.04px 7.04px;
-                        background: linear-gradient(270deg, #0C377A 0.28%, #5288DD 105.66%); padding: 15px; padding-top: 50px">
-                            <div style="display: flex;">
-                                <div style="flex-basis: 50%; color: white">
-                                    <h2>Ricki Rinaldi Concepto</h2>
-                                    <p>Mahasiswa</p>
-                                </div>
-                                <div style="margin-left: auto; color: white">
-                                    <p>https://linkScoopus.com</p>
-                                    <p>https://linkSchooler.com</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="{{ $url ?? '#' }}"
+                        style="display: inline-block; padding: 5px 10px; background-color: #0C377A; color: #fff; text-decoration: none; border-radius: 5px;">Buka
+                        Link</a>
                 @endif
                 <p><br></p>
                 <p>Terimakasih,<br><b>Team IAIE</b></p>
@@ -74,27 +54,5 @@
         </div>
     </div>
 </body>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script>
-    var contentToConvert = document.getElementById("card");
-
-    // Get the canvas element
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-
-    // Set the canvas size to match the content
-    canvas.width = contentToConvert.offsetWidth;
-    canvas.height = contentToConvert.offsetHeight;
-
-    // Draw the HTML content onto the canvas
-    html2canvas(contentToConvert).then(function(newCanvas) {
-        // Remove the existing canvas
-        var existingCanvas = document.getElementById("canvas");
-        existingCanvas.parentNode.removeChild(existingCanvas);
-
-        // Append the new canvas to replace the existing one
-        document.body.appendChild(newCanvas);
-    });
-</script>
 
 </html>

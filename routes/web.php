@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\CardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('downloads.card');
-});
+Route::get('/card/{key}', [CardController::class, 'download']);
+// Route::get('', fn () => view('emails.card'));
