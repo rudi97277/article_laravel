@@ -68,7 +68,7 @@
         .link-url {
             color: #FFF;
             font-family: DM Sans;
-            font-size: 10px;
+            font-size: 9px;
             font-style: normal;
             font-weight: 500;
             line-height: normal;
@@ -124,14 +124,14 @@
 <script>
     var element = document.getElementById("card");
 
-    // html2canvas(element, {
-    //     scale: 2,
-    // }).then(function(canvas) {
-    //     var link = document.createElement("a");
-    //     link.download = "card.png";
-    //     link.href = canvas.toDataURL("image/png");
-    //     link.click();
-    // });
+    html2canvas(element, {
+        scale: 2,
+    }).then(function(canvas) {
+        var link = document.createElement("a");
+        link.download = "card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
 </script>
 
 </html>
