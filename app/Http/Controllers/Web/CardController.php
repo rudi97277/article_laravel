@@ -13,13 +13,13 @@ class CardController extends Controller
         try {
             $id = str_replace("salt", "", decrypt($key));
         } catch (\Throwable $th) {
-            return null;
+            return \abort(404);
         }
 
         $membership = Membership::whereNotNull('evidence_id')->find($id);
 
         if (!$membership)
-            return null;
+            return \abort(404);
 
         return view('downloads.card', [
             'memberId' => $membership->registration_number,
