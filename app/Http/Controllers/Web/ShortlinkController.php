@@ -11,7 +11,7 @@ class ShortlinkController extends Controller
     {
         $membership = Membership::select('link_schooler')->where('shortlink_id', $id)->first();
         if (!$membership)
-            return \abort(404);
+            return view('errors.404');
         \header("Location: $membership->link_schooler");
     }
 
@@ -19,7 +19,7 @@ class ShortlinkController extends Controller
     {
         $membership = Membership::select('link_scoopus')->where('shortlink_id', $id)->first();
         if (!$membership)
-            return \abort(404);
+            return view('errors.404');
         \header("Location: $membership->link_scoopus");
     }
 }
