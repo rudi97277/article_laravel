@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Membership;
+use Carbon\Carbon;
 
 class CardController extends Controller
 {
@@ -26,7 +27,8 @@ class CardController extends Controller
             'linkSchooler' => $membership->link_schooler,
             'linkScopus' => $membership->link_scoopus,
             'name' => $membership->name,
-            'status' => $membership->status
+            'status' => $membership->status,
+            'expired_at' => Carbon::parse($membership->expired_at)->format('M Y')
         ]);
     }
 }

@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/card/{key}', [CardController::class, 'download']);
-// Route::get('', fn () => view('emails.card'));
+Route::get('', fn () => view('emails.card'));
