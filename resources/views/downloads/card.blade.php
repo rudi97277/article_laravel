@@ -68,7 +68,7 @@
         .link-url {
             color: #FFF;
             font-family: DM Sans;
-            font-size: 9px;
+            font-size: 10px;
             font-style: normal;
             font-weight: 500;
             line-height: normal;
@@ -85,9 +85,14 @@
 
 
         p,
-        h2 {
+        h2,
+        a {
             margin: 0px;
             padding: 0px;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         @media only screen and (max-width: 768px) {
@@ -114,8 +119,10 @@
                 <p>{{ $status ?? '-' }}</p>
             </div>
             <div style="color: white; position: absolute; bottom:10px; right: 10px;">
-                <p class="link-url">{{ $linkScopus ? trim($linkScopus) : '-' }}</p>
-                <p class="link-url">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</p>
+                <a class="link-url"
+                    href="{{ $linkScopus ? trim($linkScopus) : '#' }}">{{ $linkScopus ? trim($linkScopus) : '-' }}</a><br>
+                <a class="link-url"
+                    href="{{ $linkSchooler ? trim($linkSchooler) : '#' }}">{{ $linkSchooler ? trim($linkSchooler) : '-' }}</a>
             </div>
         </div>
     </div>
