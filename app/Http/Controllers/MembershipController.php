@@ -26,7 +26,7 @@ class MembershipController extends Controller
 
     public function index(Request $request)
     {
-        $memberships =  Membership::when($request->verified, fn($query) => $query->where('verified', $request->input('verified', 1)))
+        $memberships =  Membership::when($request->verified, fn ($query) => $query->where('verified', $request->input('verified', 1)))
             ->when(
                 $request->keyword,
                 fn ($query) => $query
@@ -56,11 +56,11 @@ class MembershipController extends Controller
         $membership->registration_number = $this->generateRegistrationNumber($membership->id);
         $membership->save();
 
-        register_shutdown_function(function ()  {
+        register_shutdown_function(function () {
             Artisan::call('-q queue:work --stop-when-empty');
         });
 
-        $defaultLink = 'http://localhost:5173/membership';
+        $defaultLink = 'https://ieia.iarn.or.id/membership';
         $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
@@ -70,21 +70,20 @@ class MembershipController extends Controller
 
     public function show(Request $request, $id)
     {
-        
-        if(!ctype_digit($id)) {
+
+        if (!ctype_digit($id)) {
             try {
                 $decryted = decrypt($id);
             } catch (\Throwable $th) {
-                return $this->errorResponse('Unauthorized',401,40100);
+                return $this->errorResponse('Unauthorized', 401, 40100);
             }
-            
-            $trueId = str_replace("salt","",$decryted);
+
+            $trueId = str_replace("salt", "", $decryted);
             $membership = Membership::whereNull('evidence_id')->findOrFail($trueId);
             $request->merge(['trueId' => $id]);
-        }
-        else
+        } else
             $membership = Membership::findOrFail($id);
-            
+
 
         return $this->showOne(new MembershipResource($membership));
     }
@@ -108,12 +107,12 @@ class MembershipController extends Controller
             $deletedId = [$membership->evidence_id];
         }
 
-        if($request->has('verified')) {
-            register_shutdown_function(function ()  {
+        if ($request->has('verified')) {
+            register_shutdown_function(function () {
                 Artisan::call('-q queue:work --stop-when-empty');
             });
 
-            Mail::to($membership->email)->send(new KartuMembership($membership->name,$request->verified));
+            Mail::to($membership->email)->send(new KartuMembership($membership->name, $request->verified));
         }
 
         $membership->update($data);
@@ -127,16 +126,16 @@ class MembershipController extends Controller
             'evidence_id' => 'required|exists:documents,id'
         ]);
 
-        if(ctype_digit($id)) 
-            return $this->errorResponse('Unauthorized',401,40100);
+        if (ctype_digit($id))
+            return $this->errorResponse('Unauthorized', 401, 40100);
 
         try {
             $decryted = decrypt($id);
         } catch (\Throwable $th) {
-            return $this->errorResponse('Unauthorized',401,40100);
+            return $this->errorResponse('Unauthorized', 401, 40100);
         }
-        
-        $trueId = str_replace("salt","",$decryted);
+
+        $trueId = str_replace("salt", "", $decryted);
         $membership = Membership::whereNull('evidence_id')->findOrFail($trueId);
         $request->merge(['trueId' => $id]);
 
