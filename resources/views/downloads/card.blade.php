@@ -23,14 +23,14 @@
             background-image: url('/images/bg-card.png');
             background-size: 100% 100%;
             padding: 10px;
-            width: 400px;
-            height: 200px;
+            width: 380px;
+            height: 182px;
         }
 
         #member-id {
             margin-left: auto;
             font-weight: 600;
-            font-size: 30px;
+            font-size: 25px;
             line-height: normal;
             color: #0C377A;
             font-family: DM Serif Text;
@@ -91,7 +91,7 @@
 <body style="font-family: 'Roboto', sans-serif; font-size:14px">
     <div id="card">
         <div style="display: flex; width: 100%; margin-bottom: 40px">
-            <img src="/images/ieia.png" alt="IEIA" width="100">
+            <img src="/images/ieia.png" alt="IEIA" width="80">
             <p id="member-id">
                 {{ $memberId }}</p>
         </div>
@@ -116,14 +116,14 @@
 <script>
     var element = document.getElementById("card");
 
-    // html2canvas(element, {
-    //     scale: 2,
-    // }).then(function(canvas) {
-    //     var link = document.createElement("a");
-    //     link.download = "card.png";
-    //     link.href = canvas.toDataURL("image/png");
-    //     link.click();
-    // });
+    html2canvas(element, {
+        scale: 2,
+    }).then(function(canvas) {
+        var link = document.createElement("a");
+        link.download = "card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
 </script>
 
 </html>
