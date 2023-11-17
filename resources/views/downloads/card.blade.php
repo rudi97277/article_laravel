@@ -73,6 +73,15 @@
             line-height: normal;
         }
 
+        #name {
+            color: #FFF;
+            font-family: DM Sans;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
 
         p,
         h2 {
@@ -101,7 +110,7 @@
             </div>
             <div style="display: flex;">
                 <div style="flex-basis: 50%; color: white">
-                    <h2>{{ $name ?? 'Name' }}</h2>
+                    <p id="name">{{ $name ?? 'Name' }}</p>
                     <p>{{ $status ?? '-' }}</p>
                 </div>
                 <div style="margin-left: auto; color: white">
