@@ -23,7 +23,8 @@
             background-image: url('/images/bg-card.png');
             background-size: 100% 100%;
             padding: 10px;
-            width: 500px;
+            width: 400px;
+            height: 200px;
         }
 
         #member-id {
@@ -115,14 +116,14 @@
 <script>
     var element = document.getElementById("card");
 
-    html2canvas(element, {
-        scale: 2,
-    }).then(function(canvas) {
-        var link = document.createElement("a");
-        link.download = "card.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-    });
+    // html2canvas(element, {
+    //     scale: 2,
+    // }).then(function(canvas) {
+    //     var link = document.createElement("a");
+    //     link.download = "card.png";
+    //     link.href = canvas.toDataURL("image/png");
+    //     link.click();
+    // });
 </script>
 
 </html>
