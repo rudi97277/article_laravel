@@ -41,7 +41,7 @@
             background-image: url('/images/bg-bottom-card.png');
             background-size: 100% 100%;
             padding: 15px;
-            padding-top: 50px;
+            padding-top: 35px;
             position: relative;
         }
 
