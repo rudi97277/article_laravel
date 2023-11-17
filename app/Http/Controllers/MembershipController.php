@@ -112,7 +112,7 @@ class MembershipController extends Controller
                 Artisan::call('-q queue:work --stop-when-empty');
             });
 
-            $encryptId = "salt$membership->id";
+            $encryptId = \encrypt("salt$membership->id");
             $url = "https://articles.iarn.or.id/card/$encryptId";
             Mail::to($membership->email)->send(new KartuMembership($membership->name, $request->verified, $url));
         }
