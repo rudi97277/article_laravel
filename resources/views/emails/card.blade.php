@@ -31,7 +31,7 @@
         <div id="content" style=" background-color:white; margin:auto">
             <hr style="padding: 0; margin:0;  border: 3px solid #0C377A; border-radius:5px">
             <div id="inner-content" style="padding: 20px;">
-                <img src="https://articles.iarn.or.id/images/ieia.png" alt="IEIA" width="100">
+                <img src="https://articles.ristek.or.id/images/ieia.png" alt="IEIA" width="100">
                 <hr style="border:1px solid #f6f6f6">
                 <h2>Halo, {{ $name ?? 'name' }}!</h2>
                 <p style="margin-bottom: 20px">Membership anda telah
@@ -49,7 +49,7 @@
         <canvas id="canvas"></canvas>
 
         <div id="footer" style="text-align: center; padding-bottom: 3px">
-            <p style="color: #8f8f8f">Copyright © {{ now()->year }} iarn.or.id</p>
+            <p style="color: #8f8f8f">Copyright © {{ now()->year }} ristek.or.id</p>
             </p>
         </div>
     </div>

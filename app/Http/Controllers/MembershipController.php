@@ -68,7 +68,7 @@ class MembershipController extends Controller
             Artisan::call('-q queue:work --stop-when-empty');
         });
 
-        $defaultLink = 'https://ieia.iarn.or.id/membership';
+        $defaultLink = 'https://ristek.or.id/membership';
         $encryptId = encrypt("salt$membership->id");
         Mail::to($membership->email)->send(new PendaftaranMembership($membership->name, "$defaultLink?key=$encryptId"));
 
@@ -125,7 +125,7 @@ class MembershipController extends Controller
             }
 
             $encryptId = \encrypt("salt$membership->id");
-            $url = "https://articles.iarn.or.id/card/$encryptId";
+            $url = "https://ristek.or.id/card/$encryptId";
             Mail::to($membership->email)->send(new KartuMembership($membership->name, $request->verified, $url));
         }
 

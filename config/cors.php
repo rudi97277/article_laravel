@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' =>  ['http://localhost', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173', 'http://127.0.0.1:5173', 'https://ieia.iarn.or.id', 'https://ieia.netlify.app'],
+    'allowed_origins' =>  ['http://localhost', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173', 'http://127.0.0.1:5173', 'https://ieia.netlify.app', 'https://ristek.or.id'],
 
     'allowed_origins_patterns' => [],
 
