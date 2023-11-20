@@ -23,8 +23,8 @@ class CardController extends Controller
 
         return view('downloads.card', [
             'memberId' => $membership->registration_number,
-            'linkSchooler' => env('APP_URL') . "/sch/$membership->shortlink_id",
-            'linkScopus' => env('APP_URL') . "/sco/$membership->shortlink_id",
+            'linkSchooler' =>  "ristek.or.id/sch/$membership->shortlink_id",
+            'linkScopus' =>  "ristek.or.id/sco/$membership->shortlink_id",
             'name' => $membership->name,
             'status' => $membership->status,
             'expired_at' => Carbon::parse($membership->expired_at)->format('M Y')
