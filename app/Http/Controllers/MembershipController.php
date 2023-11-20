@@ -26,6 +26,10 @@ class MembershipController extends Controller
 
     public function index(Request $request)
     {
+        register_shutdown_function(function () {
+            Membership::whereDate('expired_at', '<', now())->delete();
+        });
+
         $memberships =  Membership::when($request->verified, fn ($query) => $query->where('verified', $request->input('verified', 1)))
             ->when(
                 $request->keyword,
