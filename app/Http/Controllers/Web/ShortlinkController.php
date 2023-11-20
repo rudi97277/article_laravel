@@ -13,7 +13,8 @@ class ShortlinkController extends Controller
         if (!$membership)
             return view('errors.404');
         header("HTTP/1.1 301 Moved Permanently");
-        header("Location: $membership->link_schooler", true, 301);
+        // header("Location: $membership->link_schooler", true, 301);
+        header("Location: $membership->link_schooler");
         exit();
     }
 
@@ -22,7 +23,8 @@ class ShortlinkController extends Controller
         $membership = Membership::select('link_scoopus')->where('shortlink_id', $id)->first();
         if (!$membership)
             return view('errors.404');
-        header("Location: $membership->link_scoopus", true, 301);
+        // header("Location: $membership->link_scoopus", true, 301);
+        header("Location: $membership->link_scoopus");
         exit();
     }
 }
