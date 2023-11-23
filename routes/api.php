@@ -60,6 +60,7 @@ Route::prefix('articles')->group(function () {
 Route::prefix('events')->group(function () {
     Route::controller(EventController::class)->group(function () {
         Route::get('', 'index');
+        Route::get('calendar', 'calenderView');
         Route::get('{id}', 'show');
     });
 });

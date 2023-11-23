@@ -9,6 +9,8 @@ use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EventController extends Controller
@@ -115,7 +117,6 @@ class EventController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         $event = Event::with('modelDocuments')->findOrFail($id);
@@ -125,5 +126,30 @@ class EventController extends Controller
         $status = $event->delete();
         $this->documentService->deleteResource($deletedDocuments);
         return $this->showOne($status);
+    }
+
+    public function calenderView(Request $request){
+        $request->validate([
+            'date' => 'required|date_format:Y-m'
+        ]);
+        $template = $this->calendarTemplate($request->date);
+        $events  = Event::selectRaw("id,title,description,cover_id,DATE(created_at) AS date")->with('cover:id,url')->whereRaw("DATE_FORMAT(created_at,'%Y-%m') = '$request->date'")->get()->groupBy('date');
+        foreach($events as $date => $list)
+        {
+            $template[$date]= array_merge($template[$date],$list->toArray());
+        }
+        return $this->showOne($template);
+    }
+
+    public function calendarTemplate($yearMonth)
+    {
+        $start = "$yearMonth-01";
+        $end = Carbon::parse($start)->lastOfMonth()->format('Y-m-d');
+        collect(CarbonPeriod::create($start,$end))->map(function($date) use (&$template) {
+            $template[$date->format('Y-m-d')] = [];
+        });
+
+        return $template;
+        
     }
 }
