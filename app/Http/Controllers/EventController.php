@@ -43,11 +43,12 @@ class EventController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'document_ids' => 'required|array',
+            'date' => 'required|date',
             'document_ids.*' => 'required|exists:documents,id',
             'cover_id' => 'required|exists:documents,id'
         ]);
 
-        $event = Event::create($request->only('title', 'description', 'cover_id'));
+        $event = Event::create($request->only('title', 'description', 'cover_id', 'date'));
 
         $modelData = [];
 
@@ -75,6 +76,7 @@ class EventController extends Controller
             'title' => 'nullable|string',
             'description' => 'nullable|string',
             'document_ids' => 'nullable|array',
+            'date' => 'nullable|date',
             'document_ids.*' => 'nullable|exists:documents,id',
             'cover_id' => 'nullable|exists:documents,id'
         ]);
@@ -105,7 +107,7 @@ class EventController extends Controller
                 $deletedDocument = array_merge($deletedDocument, ($documentIds->diff($request->document_ids)->values())->toArray());
             }
 
-            $data = $request->only('title', 'description', 'cover_id');
+            $data = $request->only('title', 'description', 'cover_id', 'date');
             $status = $event->update($data);
 
 
@@ -128,15 +130,15 @@ class EventController extends Controller
         return $this->showOne($status);
     }
 
-    public function calenderView(Request $request){
+    public function calenderView(Request $request)
+    {
         $request->validate([
             'date' => 'required|date_format:Y-m'
         ]);
         $template = $this->calendarTemplate($request->date);
-        $events  = Event::selectRaw("id,title,description,cover_id,DATE(created_at) AS date")->with('cover:id,url')->whereRaw("DATE_FORMAT(created_at,'%Y-%m') = '$request->date'")->get()->groupBy('date');
-        foreach($events as $date => $list)
-        {
-            $template[$date]= array_merge($template[$date],$list->toArray());
+        $events  = Event::selectRaw("id,title,description,cover_id,date")->with('cover:id,url')->whereRaw("DATE_FORMAT(date,'%Y-%m') = '$request->date'")->get()->groupBy('date');
+        foreach ($events as $date => $list) {
+            $template[$date] = array_merge($template[$date], $list->toArray());
         }
         return $this->showOne($template);
     }
@@ -145,11 +147,10 @@ class EventController extends Controller
     {
         $start = "$yearMonth-01";
         $end = Carbon::parse($start)->lastOfMonth()->format('Y-m-d');
-        collect(CarbonPeriod::create($start,$end))->map(function($date) use (&$template) {
+        collect(CarbonPeriod::create($start, $end))->map(function ($date) use (&$template) {
             $template[$date->format('Y-m-d')] = [];
         });
 
         return $template;
-        
     }
 }

@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->date('date');
             $table->uuid('cover_id');
             $table->timestamps();
             $table->foreign('cover_id')->references('id')->on('documents');
