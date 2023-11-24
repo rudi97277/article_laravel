@@ -135,22 +135,8 @@ class EventController extends Controller
         $request->validate([
             'date' => 'required|date_format:Y-m'
         ]);
-        $template = $this->calendarTemplate($request->date);
-        $events  = Event::selectRaw("id,title,description,cover_id,date")->with('cover:id,url')->whereRaw("DATE_FORMAT(date,'%Y-%m') = '$request->date'")->get()->groupBy('date');
-        foreach ($events as $date => $list) {
-            $template[$date] = array_merge($template[$date], $list->toArray());
-        }
-        return $this->showOne($template);
-    }
-
-    public function calendarTemplate($yearMonth)
-    {
-        $start = "$yearMonth-01";
-        $end = Carbon::parse($start)->lastOfMonth()->format('Y-m-d');
-        collect(CarbonPeriod::create($start, $end))->map(function ($date) use (&$template) {
-            $template[$date->format('Y-m-d')] = [];
-        });
-
-        return $template;
+        $events = Event::selectRaw("id,title,description,cover_id,date")->with('cover:id,url')->whereRaw("DATE_FORMAT(date,'%Y-%m') = '$request->date'")
+            ->get();
+        return $this->showOne($events);
     }
 }
