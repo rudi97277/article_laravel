@@ -21,7 +21,7 @@ class EventResource extends JsonResource
             'description' => $this->description,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
             'cover' => new DocumentResource($this->cover),
-            'created_by' =>  $this->createdBy?->name ?? 'Administrator',
+            'created_by' =>  $this->createdBy->name ?? 'Administrator',
             'date' => $this->date,
             'documents' => DocumentResource::collection($this->whenLoaded('documents')),
         ];

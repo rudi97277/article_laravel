@@ -24,7 +24,7 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $articles =  Article::with('cover')
+        $articles =  Article::with(['cover', 'createdBy'])
             ->when($request->keyword, fn ($query) => $query->where(
                 fn ($query) => $query->where('title', 'LIKE', "%$request->keyword%")
                     ->orWhere('description', 'LIKE', "%$request->keyword%")

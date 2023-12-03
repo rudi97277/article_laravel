@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events =  Event::with('cover')
+        $events =  Event::with(['cover', 'createdBy'])
             ->when($request->keyword, fn ($query) => $query->where(
                 fn ($query) => $query->where('title', 'LIKE', "%$request->keyword%")
                     ->orWhere('description', 'LIKE', "%$request->keyword%")
