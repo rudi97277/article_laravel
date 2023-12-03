@@ -25,4 +25,9 @@ class Article extends Model
     {
         return $this->belongsTo(Document::class, 'cover_id');
     }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

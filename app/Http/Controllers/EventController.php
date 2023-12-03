@@ -48,7 +48,9 @@ class EventController extends Controller
             'cover_id' => 'required|exists:documents,id'
         ]);
 
-        $event = Event::create($request->only('title', 'description', 'cover_id', 'date'));
+        $user = request()->user();
+
+        $event = Event::create(\array_merge($request->only('title', 'description', 'cover_id', 'date'), ['created_by' => $user->id]));
 
         $modelData = [];
 

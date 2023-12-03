@@ -43,7 +43,9 @@ class ArticleController extends Controller
             'cover_id' => 'required|exists:documents,id'
         ]);
 
-        $article = Article::create($request->only('title', 'description', 'cover_id'));
+        $user = request()->user();
+
+        $article = Article::create(array_merge($request->only('title', 'description', 'cover_id'), ['created_by' => $user->id]));
 
         $modelData = [];
 
